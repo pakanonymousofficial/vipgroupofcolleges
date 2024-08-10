@@ -103,7 +103,7 @@
     const days = Math.floor(timeleft / (1000 * 60 * 60 * 24));
     const hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+    const seconds = Math.floor((timeleft % (1000 * 60)) / 100);
 
     countDownItem.querySelector('.count-days').innerHTML = days;
     countDownItem.querySelector('.count-hours').innerHTML = hours;
@@ -113,13 +113,6 @@
   }
 
   document.querySelectorAll('.countdown').forEach(function(countDownItem) {
-    // Calculate the end date 65 days from now
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + 65);
-    
-    // Set the data-count attribute to 65 days from now
-    countDownItem.setAttribute('data-count', endDate.toISOString());
-
     updateCountDown(countDownItem);
     setInterval(function() {
       updateCountDown(countDownItem);
