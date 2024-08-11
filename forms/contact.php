@@ -1,34 +1,35 @@
 <?php
 // Replace contact@example.com with your real receiving email address
-  $receiving_email_address = 'principle@vipgroupofcolleges.com';
+$receiving_email_address = 'principle@vipgroupofcolleges.com';
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
-  } else {
-    die( 'Server Are Also Coming Soon!');
-  }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $subject = $_POST['subject'];
+    $message = $_POST['message'];
 
-  $contact = new PHP_Email_Form;
-  $contact->ajax = true;
-  
-  $contact->to = $receiving_email_address;
-  $contact->from_name = $_POST['name'];
-  $contact->from_email = $_POST['email'];
-  $contact->subject = $_POST['subject'];
+    require 'PHPMailer/PHPMailerAutoload.php';  // Ensure you have the PHPMailer library included
 
-  // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
-  /*
-  $contact->smtp = array(
-    'host' => 'example.com',
-    'username' => 'example',
-    'password' => 'pass',
-    'port' => '587'
-  );
-  */
+    $mail = new PHPMailer;
+    $mail->isSMTP();
+    $mail->Host = 'smtp.gmail.com';
+    $mail->SMTPAuth = true;
+    $mail->Username = 'vipgroupofcollegesbot@gmail.com'; // Your Gmail address
+    $mail->Password = 'zvdq gdfi zepg iahi'; // Your Gmail password or App Password if 2FA is enabled
+    $mail->SMTPSecure = 'tls';
+    $mail->Port = 587;
 
-  $contact->add_message( $_POST['name'], 'From');
-  $contact->add_message( $_POST['email'], 'Email');
-  $contact->add_message( $_POST['message'], 'Message', 10);
+    $mail->setFrom($email, $name);
+    $mail->addAddress($receiving_email_address);
+    $mail->Subject = $subject;
+    $mail->Body = "From: $name\nEmail: $email\n\nMessage:\n$message";
 
-  echo $contact->send();
+    if ($mail->send()) {
+        echo 'Message sent successfully!';
+    } else {
+        echo 'Message could not be sent. Mailer Error: ' . $mail->ErrorInfo;
+    }
+} else {
+    die('Server Are Also Coming Soon!');
+}
 ?>
