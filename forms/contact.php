@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mail->isSMTP();
     $mail->Host = 'smtp.gmail.com';
     $mail->SMTPAuth = true;
-    $mail->Username = 'vipgroupofcollegesbot@gmail.com'; // Your Gmail address
-    $mail->Password = 'zvdq gdfi zepg iahi'; // Your Gmail password or App Password if 2FA is enabled
+    $mail->Username = 'email'; // Your Gmail address
+    $mail->Password = 'password'; // Your Gmail password or App Password if 2FA is enabled
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
 
